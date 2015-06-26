@@ -1,0 +1,35 @@
+<ion-view hide-nav-bar="true">
+    <ion-side-menus>
+        <ion-side-menu-content>
+            <div class="bar bar-header bar-dark">
+                <!--div class="buttons pull-right">
+                    <button class="button button-icon" ng-class="{'ion-looping':updating && !updateerror, 'ion-loop':!updating && !updateerror, 'ion-alert-circled':updateerror}" ng-click="update()"></button>
+                    <button class="button button-icon icon" ng-class="{'ion-log-in':!user.name, 'ion-log-out':user.name}" ng-click="showlogin()"></button>
+                </div-->
+                <button class="button button-clear" ng-click="back()"><i class="icon ion-ios7-arrow-back"></i>
+                </button>
+                <h1 class="title">{{(configurations[organizationid]|filter:configurationid)[0].name}}</h1>
+                <button class="button button-icon icon" ng-class="{'ion-log-in':!user.name, 'ion-log-out':user.name}" ng-click="showlogin()"></button>
+            </div>
+            
+            <map on-create="mapCreated(map)" data-tap-disabled="true" on-ts="onTS(event)"></map>
+            <div class="bar bar-footer bar-balanced">
+                <button menu-toggle="left" class="button button-clear icon ion-navicon-round" ng-hide="$exposeAside.active"></button>
+                <button class="button button-icon icon ion-edit" ng-click="edit()" ng-if="widgets.indberetninger"></button>
+                <button class="button button-icon icon ion-navigate" ng-click="locate()" ng-if="widgets.position"></button>
+                <button class="button button-icon icon ion-android-locate" ng-class="{pulse:track}" ng-click="tracking()" ng-if="widgets.position"></button>
+                <button class="button button-clear"></button>
+                <!--div class="title"><strong>Næste</strong>
+                </div-->
+            </div>
+            <a ng-click="next()" class="bp"><i class="icon ion-chevron-right"></i></a>
+        </ion-side-menu-content>>
+        <ion-side-menu side="left" expose-aside-when="large">
+            <ion-nav-bar class="bar-dark" animation="nav-title-slide-ios7">
+                <ion-nav-back-button class="button-clear"><i class="icon ion-ios7-arrow-back"></i>
+                </ion-nav-back-button>
+            </ion-nav-bar>
+            <ion-nav-view animation="slide-left-right"></ion-nav-view>
+        </ion-side-menu>
+    </ion-side-menus>
+</ion-view>

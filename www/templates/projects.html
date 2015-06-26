@@ -1,0 +1,15 @@
+<ion-view title="Projekter">
+    <ion-nav-buttons side="right">
+        <a ui-sref="map.create" class="button button-icon icon ion-compose"></a>
+    </ion-nav-buttons>
+    <ion-content class="has-header dark-bg">
+        <ion-list>
+            <ion-item class="item-dark" ng-repeat="(key,value) in layer._layers" ui-sref="map.edit({project:key})">
+                <!--{{value.properties.projekttype}}-->
+                <h2 class="light">{{value.feature.properties.projekttype}}</h2>
+                <p>{{value.feature.properties.status}}</p>
+                <p class="light">{{value.feature.properties.timestamp}}</p>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

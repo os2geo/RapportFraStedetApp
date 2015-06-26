@@ -1,0 +1,80 @@
+
+<div ng-repeat="field in formular" ng-init="key=field.id;prop=schema.properties[key];title=prop.title||key">
+    <!-- text -->
+    <label class="item item-input">
+    <input type="text" placeholder="First Name">
+  </label>
+    <label class="item item-input default" ng-if="field.type==='text'" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+        <span class="input-label">{{title}}</span>
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="text" placeholder="{{field.placeholder}}" ng-disabled="field.disabled">
+    </label>
+    
+    <!-- email -->
+    <label class="item item-input item-stacked-label default" ng-if="field.type==='email'" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+        <span class="input-label">{{title}}</span>
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="email" placeholder="{{field.placeholder}}" ng-disabled="field.disabled">
+    </label>
+    
+    <!-- url -->
+    <label class="item item-input item-stacked-label default" ng-if="field.type==='url'" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+        <span class="input-label">{{title}}</span>
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="url" placeholder="{{field.placeholder}}" ng-disabled="field.disabled">
+    </label>
+    
+    <!-- datetime-local -->
+    <label class="item item-input item-stacked-label default" ng-if="field.type==='datetime-local'" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+        <span class="input-label">{{title}}</span>
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="datetime-local" placeholder="{{field.placeholder}}" ng-disabled="field.disabled">
+    </label>
+
+    <!-- Gruppe -->
+    <div ng-if="field.fields.length>0">
+        <div class="item item-divider">
+            {{title}}
+        </div>
+        <formular formular="field.fields" schema="schema.properties[key]" doc="doc[key]" valid="valid[key]"></formular>
+    </div>
+
+    <!-- textarea -->
+    <label class="item item-input item-stacked-label default" ng-if="field.type==='textarea'" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+        <span class="input-label">{{title}}</span>
+        <textarea name={{key}} id="{{key}}" ng-model="doc[key]" placeholder="{{field.placeholder}}" ng-disabled="field.disabled"></textarea>
+    </label>
+
+    <!-- checkbox -->
+    <div class="item item-checkbox default" ng-if="field.type==='checkbox' && prop.type==='boolean'" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+        <label class="checkbox" ng-class="{'checkbox-assertive': valid[key].$error.code===302, 'checkbox-energized':(required && !valid[key].$error)}">
+            <input type="checkbox" name="{{key}}" ng-checked="doc[key]">
+        </label>
+        {{title}}
+    </div>
+
+    <!-- checkbox array -->
+    <div ng-if="field.type==='checkbox' && prop.type==='array'">
+        <div class="item item-divider">
+            {{title}}
+        </div>
+        <div class="item item-checkbox" ng-repeat="item in prop.items">
+            <label class="checkbox">
+                <input type="checkbox" name="{{key}}" ng-model="doc[key][$index]" ng-required="required">
+            </label>
+            <i class="ion-asterisk assertive" ng-if="required"></i> {{item.title}}
+        </div>
+    </div>
+
+    <!-- radio -->
+    <div ng-if="field.type==='radio'">
+        <div class="item item-divider" ng-class="{'item-assertive': valid[key].$error.code===302, 'item-energized':(required && !valid[key].$error)}">
+            {{title}}
+        </div>
+        <label class="item item-radio default" ng-repeat="option in prop.enum" ng-class="{'required-error': valid[key].$error.code===302, required:(required && !valid[key].$error)}">
+            <input type="radio" name="{{key}}" value="{{option}}" ng-model="doc[key]">
+            <div class="item-content">
+                {{option}}
+            </div>
+            <i class="radio-icon ion-checkmark"></i>
+        </label>
+    </div>
+
+    
+</div>

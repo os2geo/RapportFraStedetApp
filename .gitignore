@@ -1,0 +1,7 @@
+dist
+node_modules
+platforms
+plugins
+tmp
+ionic
+hooks

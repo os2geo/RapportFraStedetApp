@@ -1,0 +1,5 @@
+<h3 class="error">{{error.dataPath|schemapath:schema}}</h3>
+<p class="error">{{error.message}}</p>
+<div ng-repeat="error in error.subErrors">
+    <div ng-include="'templates/error.html'"></div>
+</div>

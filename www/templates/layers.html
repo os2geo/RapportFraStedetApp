@@ -1,0 +1,33 @@
+<ion-view title="Kortlag">
+    <div>
+        <ion-content class="has-header">
+            <div class="list">
+                <div class="item item-divider">
+                    Baggrundskort
+                </div>
+                <label class="item item-radio" ng-repeat="baselayer in configuration.map.baselayers" ng-hide="baselayer.hidden">
+                    <input type="radio" name="baselayer" value="{{$index}}" ng-model="selectedBaselayer" ng-click="baselayerChange(baselayer)">
+                    <div class="item-content">
+                        {{baselayer.name}}
+                    </div>
+                    <i class="radio-icon ion-checkmark"></i>
+                </label>
+                <div class="item item-divider">
+                    Lag
+                </div>
+                <div class="item item-checkbox" ng-repeat="overlay in configuration.map.overlays" ng-hide="overlay.hidden">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="overlay.selected" ng-change="overlayChange(overlay)">
+                    </label>
+                    {{overlay.name}}
+                </div>
+                <!-- div class="item item-checkbox">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="myLayerSelected" ng-change="myLayerChange()">
+                    </label>
+                    Mine indberetninger
+                </div -->
+            </div>
+        </ion-content>
+    </div>
+</ion-view>

@@ -1,0 +1,13 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-dark">
+        <button class="button button-clear" ng-click="modal.remove()">Fortryd</button>
+        <h1 class="title">Formular</h1>
+        <button class="button button-clear" ng-click="submit()">OK</button>
+    </ion-header-bar>
+    <ion-content class="form-content">
+        <div class="list list-inset">
+            <formular formular="widgets.indberetninger.form" schema="schemas[widgets.indberetninger.layer]" doc="doc" valid="valid" disabled="disabled" id="doc._id" class="form"></formular>
+        </div>
+        <div class="fyld"></div>
+    </ion-content>
+</ion-modal-view>

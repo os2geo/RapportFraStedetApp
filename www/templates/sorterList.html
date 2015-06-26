@@ -1,0 +1,38 @@
+<ion-popover-view>
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider item-dark">
+                Sortering
+            </div>
+            <label class="item item-radio">
+                <input type="radio" name="sortering" value="distance" ng-model="selectedSortering" ng-click="selectSort('distance')">
+                <div class="item-content">
+                    Afstand
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <label class="item item-radio" ng-repeat="field in overlay.list">
+                <input type="radio" name="sortering" ng-value="field.substring(12)" ng-model="selectedSortering" ng-click="selectSort('properties.'+field.substring(12))">
+                <div class="item-content">
+                    {{field|schemapath:schema}}
+                </div>
+                <i class="radio-icon ion-checkmark"></i>
+            </label>
+            <div class="item item-divider item-dark">
+                Filtrering
+            </div>
+            <div ng-repeat="field in overlay.list | enumfilter:schema">
+                
+                <div class="item item-divider">
+                    {{field.title||field.key}}
+                </div>
+                <div class="item item-checkbox" ng-repeat="item in field.enum">
+                    <label class="checkbox">
+                        <input type="checkbox" ng-model="field.checked[item]">
+                    </label>
+                    {{item}}
+                </div>
+            </div>
+        </div>
+    </ion-content>
+</ion-popover-view>
