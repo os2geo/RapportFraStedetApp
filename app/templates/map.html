@@ -1,0 +1,23 @@
+<ion-view id="kort" can-swipe-back="false">
+	<ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-ios-arrow-back" ng-click="navOrganization()"></button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+        <div class="title">{{config.n}}</div>    
+    </ion-nav-title>
+	<ion-nav-buttons side="right">
+		<ion-spinner icon="ios" ng-show="!dbstatus"></ion-spinner>
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="right"></button>
+	</ion-nav-buttons>
+	<ion-content scroll="false" style="margin-bottom:43px">
+		<div id="map" data-tap-disabled="true"></div>
+	</ion-content>
+	<div class="bar bar-footer bar-balanced">
+		<button class="button button-icon icon ion-edit" ng-click="showDraw()" ng-if="widgets.indberetninger"></button>
+		<button class="button button-icon icon ion-navigate" ng-click="locate()" ng-if="widgets.position"></button>
+		<button class="button button-icon icon ion-android-locate" ng-class="{pulse:widgets.tracking.checked}" ng-click="widgets.tracking.checked=!widgets.tracking.checked;tracking()"
+		ng-if="widgets.tracking"></button>
+		<button class="button button-clear"></button>
+	</div>
+	<a ng-click="next()" class="bp"><i class="icon ion-chevron-right"></i></a>
+</ion-view>

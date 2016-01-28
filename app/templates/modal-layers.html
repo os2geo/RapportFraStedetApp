@@ -1,0 +1,18 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-dark">
+        <button class="button button-clear" ng-click="close('kortkontrol')">Luk</button>
+        <h2 class="title">{{widget.name}}</h2>
+    </div>
+    <ion-content class="has-header">
+        <div class="list">
+            <div class="item item-divider">
+                Baggrundskort
+            </div>            
+            <ion-radio name="baselayer" ng-model="selectedBaselayer" ng-value="item.id" ng-click="baselayerChange(item)" ng-repeat="item in configuration.map.baselayers" ng-hide="item.hidden">{{item.name}}</ion-radio>            
+            <div class="item item-divider">
+                Lag
+            </div>            
+            <ion-checkbox ng-model="overlay.selected" ng-change="overlayChange(overlay)" ng-repeat="overlay in configuration.map.overlays" ng-hide="overlay.hidden">{{overlay.name}}</ion-checkbox>
+        </div>
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,117 @@
+<div class="formular" ng-repeat="item in fields" ng-init="key=item.key;prop=item.prop;title=item.title;required=item.required;field=item.field"
+ng-if="item.field.type!=='geometry'">
+
+    <!--div ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && "-->
+
+    <!-- Gruppe -->
+    <div ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.fields.length>0 && field.type!=='geometry')">
+        <formular formular="field.fields" parentkey="parentkey+'/'+key" schema="schema.properties[key]" doc="doc[key]" valid="valid[key]"
+        id="id" overlay="overlay"></formular>
+    </div>
+
+    <h3 ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type!=='geometry' && field.type!=='group' )">{{title}} <i ng-if="required" class="ion-asterisk required"></i></h3>
+
+    <!-- text -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='text')"
+    ng-class="{'required-error': valid[key].$error && !disabled && !field.readonly}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="text" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+    <!-- email -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='email')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="email" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+    <!-- url -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='url')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="url" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+    <!-- datetime-local -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='datetime-local')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="datetime-local" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+    <!-- date -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='date')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="date" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+    <!-- time -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='time')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="time" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+    <!-- timestamp -->
+    <!--
+        <label class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='timestamp' && field.readonly)" ng-class="{'required-error': valid[key].$error && !disabled, required:(required && !valid[key].$error && !disabled)}">
+-->
+    <ion-input class="item item-input" ng-if="field.type==='timestamp'">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="datetime-local" placeholder="{{field.placeholder}}" disabled=>
+    </ion-input>
+
+    <!-- number -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='number')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <input name={{key}} id="{{key}}" ng-model="doc[key]" type="number" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+    </ion-input>
+
+
+
+    <!-- textarea -->
+    <ion-input class="item item-input" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='textarea')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">
+        <textarea name={{key}} id="{{key}}" ng-model="doc[key]" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled"
+        rows="10"></textarea>
+    </ion-input>
+
+    <!-- checkbox -->
+    <ion-checkbox class="single" ng-class="{'checkbox-assertive': valid[key].$error && !disabled, 'checkbox-energized':(required && !valid[key].$error && !disabled)}" ng-model="doc[key]" ng-change="changeCheckbox(key)" ng-disabled="field.readonly || disabled" ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='checkbox' && prop.type==='boolean')"
+    ng-class="{'required-error': valid[key].$error && !disabled}">{{title}}</ion-checkbox>
+
+
+    <!--div class="item item-toggle item-icon-left" ng-if="field.type==='checkbox' && prop.type==='boolean'" ng-class="{'required-error': valid[key].$error && !disabled, required:(required && !valid[key].$error && !disabled)}">
+        {{title}}
+        <label class="toggle toggle-balanced">
+            <input type="checkbox" name="{{key}}" ng-model="doc[key]" ng-disabled="field.readonly || disabled" ng-change="changeCheckbox(key)">
+            <div class="track">
+                <div class="handle"></div>
+            </div>
+        </label>
+    </div-->
+
+    <!-- checkbox array -->
+    <div ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='checkbox' && prop.type==='array')">        
+         <ion-checkbox  name="{{key}}" ng-model="doc[key][$index]" ng-disabled="field.readonly || disabled" ng-repeat="item in prop.items">{{item.title}}</ion-checkbox>
+    </div>
+
+    <!-- radio -->
+    <div ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='radio')">
+        <ion-radio class="item-text-wrap" ng-model="doc[key]" name="{{key}}" ng-value="option" ng-disabled="field.readonly || disabled" ng-repeat="option in prop.enum" ng-class="{'required-error': valid[key].$error && !disabled}">{{option}}</ion-radio>
+    </div>
+
+    <!-- select -->
+    <div ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='select')">
+        <ion-input class="item item-input item-select" ng-class="{'required-error': valid[key].$error && !disabled}">
+            <select ng-options="option for option in prop.enum" ng-model="doc[key]" ng-disabled="field.readonly || disabled">
+            </select>
+        </ion-input>
+    </div>
+
+    <!-- file -->
+    <div ng-if="(!disabled || (disabled && (parentkey==='' || overlay.list.indexOf(parentkey+'/'+key)!==-1))) && (field.type==='file')">
+        <div class="item item-button-right foto" ng-class="{'required-error': valid[key].$error && !disabled}" style="min-height:50px">
+            <img ng-src="{{files[key].src}}" style="max-height: 100px" ng-show="files[key].src">
+            <button class="button button-stable" ng-click="openFileDialog(key)" ng-if="!field.readonly && !disabled">
+                <i class="icon ion-ios-camera "></i>
+            </button>
+        </div>
+        <input id="{{key}}" type="file" style="display:none">
+    </div>
+    <!--/div-->
+</div>

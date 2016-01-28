@@ -1,0 +1,29 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-dark ">
+        <button class="button button-clear" ng-click="close('adressesøgning')">Luk</button>
+        <h2 class="title">{{widget.name}}</h2>
+
+    </div>
+    <div class="bar bar-balanced bar-subheader item-input-inset">
+        <ion-input class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" id="awsInput" placeholder="Søg adresse" ng-model="search.input" ng-keyup="keyup($event)" ng-keydown="keydown($event)">
+        </ion-input>
+        <button class="button button-clear button-icon button-light" ng-click="searchReset()"><i class="icon ion-ios-close-outline"></i></button>
+    </div>
+    <ion-content class="has-subheader">
+        <ion-list>
+            <!--
+            <ion-item collection-repeat="s in search.result" collection-item-width="'100%'" collection-item-height="55" ng-click="selectAddr(s)" ng-class="{active: s==selected}">{{s.tekst}}
+            </ion-item>
+            -->
+
+            <ion-item ng-repeat="s in search.result" ng-click="selectAddr(s)" ng-class="{active: s==selected}">{{s.tekst}}
+            </ion-item>
+
+        </ion-list>
+
+        <ion-infinite-scroll on-infinite="loadMore()" distance="1%" ng-if="canLoadMore">
+
+    </ion-content>
+</ion-modal-view>

@@ -1,7 +1,9 @@
-dist
+www
 node_modules
 platforms
 plugins
-tmp
-ionic
-hooks
+release_files
+resources/android
+resources/ios
+release.sh
+app/lib

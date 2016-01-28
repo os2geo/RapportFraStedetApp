@@ -1,0 +1,18 @@
+<ion-view>
+    <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-ios-arrow-back" ng-click="navOrganizations()"></button>
+    </ion-nav-buttons>
+    <ion-nav-title>
+      <div class="title"><i class="circle">2</i>Vælg tema</div>
+    </ion-nav-title>
+    <ion-content>
+        <ion-list>
+            <ion-item class="item-icon-right item-thumbnail-left item-text-wrap" ng-repeat="doc in rows | orderBy:'n'" ui-sref="menu.map({configuration:doc._id,organization:organizationid})">
+                <img ng-src="{{doc.l}}">
+                <h2>{{doc.n}}</h2>
+                <p>{{doc.b}}</p>
+                <i class="icon ion-ios-arrow-right"></i>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-view>

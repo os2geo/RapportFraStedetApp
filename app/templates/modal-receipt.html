@@ -1,0 +1,12 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-dark">
+        <!--button class="button button-icon icon ion-edit" ng-click="close()"></button-->
+        <!--h1 class="title">{{schema.properties.geometry.title || 'Placer indberetning'}}</h1-->
+        <button class="button button-clear" ng-click="close('modal-receipt')">Luk</button>
+    </ion-header-bar>
+    <ion-content class="padding">
+        <div ng-bind-html="widgets.indberetninger.receipt" class="receipt"></div>
+        <button class="button button-block button-balanced" ng-click="close('modal-receipt');navBack()">Tilbage til menu</button>
+        <button class="button button-block button-balanced" ng-click="close('modal-receipt');showDraw()">Ny indberetning</button>
+    </ion-content>
+</ion-modal-view>

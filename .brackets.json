@@ -1,0 +1,6 @@
+{
+    "jscodehints.detectedExclusions": [
+        "/Users/runetvilum/GitHub/RFS/plugins/cordova-plugin-whitelist/whitelist.js",
+        "/Users/runetvilum/GitHub/RFS-socket/www/js/worker.js"
+    ]
+}

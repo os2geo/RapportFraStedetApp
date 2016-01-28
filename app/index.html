@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<!-- build:[manifest] manifest.appcache -->
+<html>
+<!-- /build -->
+
+
+<head>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>Rapport Fra Stedet</title>
+    <script>
+        var $buoop = {c:2}; 
+        function $buo_f(){ 
+            var e = document.createElement("script"); 
+            e.src = "//browser-update.org/update.min.js"; 
+            document.body.appendChild(e);
+        };
+        try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+        catch(e){window.attachEvent("onload", $buo_f)}
+    </script>
+    <link href="js/leaflet/leaflet.css" rel="stylesheet">
+    <link href="lib/leaflet.markercluster/dist/MarkerCluster.css" rel="stylesheet">
+    <link href="lib/leaflet.markercluster/dist/MarkerCluster.Default.css" rel="stylesheet">
+    <link href="lib/leaflet-usermarker/src/leaflet.usermarker.css" rel="stylesheet">
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.min.css" rel="stylesheet">
+    
+
+    <script src="cordova.js"></script>
+
+    <!-- ionic/angularjs js -->
+    <script src="lib/blob-util/dist/blob-util.min.js"></script>
+    <script src="lib/lie/dist/lie.polyfill.min.js"></script>
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="js/angular-ios9-uiwebview.patch.js"></script>
+    <script src="lib/socket.io-client/socket.io.js"></script>
+    <script src="lib/angular-i18n/angular-locale_da-dk.js"></script>
+    <script src="lib/ngstorage/ngStorage.min.js"></script>
+    <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
+    <script src="lib/proj4/dist/proj4.js"></script>
+    <script src="lib/angular-utf8-base64/angular-utf8-base64.min.js"></script>
+    <script>
+        L_PREFER_CANVAS = true;
+    </script>
+    <script src="js/leaflet/leaflet-src.js"></script>
+    <script src="lib/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+    <script src="lib/leaflet.editable/src/Leaflet.Editable.js"></script>
+    <script src="lib/leaflet-usermarker/src/leaflet.usermarker.js"></script>
+    <script src="lib/leaflet-cache/L.TileLayer.Cache.Blob10.js"></script>
+    <script src="lib/leaflet-cache/L.Icon.Cache.Blob.js"></script>
+    <script src="lib/proj4leaflet/src/proj4leaflet.js"></script>
+    <script src="lib/tv4/tv4.js"></script>
+    <script src="lib/turf/turf.min.js"></script>
+    <script src="lib/node-uuid/uuid.js"></script>
+    <script src="js/leaflet.zoomdisplay.js"></script>
+    <script src="js/tv4-da.js"></script>
+    <script src="js/idb-database.js"></script>
+    <script src="js/idb.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/filters.js"></script>
+    <script src="js/services.js"></script>
+    <script src="js/directives.js"></script>
+    <script src="js/controller-menu.js"></script>
+    <script src="js/controller-map.js"></script>
+    <script src="js/controller-organizations.js"></script>
+    <script src="js/controller-organization.js"></script>
+    <script src="js/controller-login.js"></script>
+    <script src="js/controller-intro.js"></script>
+    <!-- Google Analytics -->
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-24623853-2', 'auto');
+//ga('create', 'UA-24623853-3', 'auto');
+//ga("set", "appName", "RapportFraStedet");
+    </script>
+    <!-- End Google Analytics -->
+</head>
+
+<body ng-app="starter">
+    <ion-nav-view></ion-nav-view>
+</body>
+
+</html>

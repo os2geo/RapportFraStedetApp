@@ -1,0 +1,72 @@
+<ion-modal-view>
+    <div class="bar bar-header bar-dark">
+        <button class="button button-clear no-animation" ng-click="close('offlinemap')">Luk</button>
+        <h2 class="title">{{widget.name}}</h2>
+        <button class="button button-clear no-animation" ng-click="startCache()" ng-if="!go.stop">Start</button>
+        <button class="button button-clear no-animation" ng-click="stopCache()" ng-if="go.stop">Stop</button>
+    </div>
+
+    <ion-content class="has-header">
+        <div class="wizard-offline" ng-show="!go.stop">
+            <div id="mapOffline" class="leaflet-safari" data-tap-disabled="true"></div>
+            <div class="range range-positive">
+                <input type="range" name="volume" min="{{baselayer.minZoom}}" max="{{baselayer.maxNativeZoom || baselayer.maxZoom}}" ng-model="go.maxZoom"> {{go.maxZoom}}
+            </div>
+            <div class="addtitle">Marker område som skal downloades og angiv zoom niveau</div>
+        </div>
+        <div class="list card" ng-show="go.stop">
+            <div class="item item-divider">
+                Progress
+            </div>
+            <div class="item">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped" ng-class="{active:go.progress>0 && go.progress<100}" ng-style="{width: go.progress+'%'}">
+                        <span class="sr-only">{{go.progress}} %</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+        <ion-slides slider="$parent.slider">
+            <ion-slide-page>
+                
+            </ion-slide-page>
+            <ion-slide-page>
+                <div class="wizard-offline">
+                    <div class="list card">
+                        <div class="item item-divider">
+                            Status
+                        </div>
+                        <div class="item item-text-wrap">
+                            <p>Max zoom: {{go.maxZoom}}</p>
+                            <p>Antal tiles: {{go.total}}</p>
+                            <p>Diskplads: {{(go.total * go.size) | bytes }}</p>
+                            <p class="assertive" ng-if="go.errors>0">Fejl: {{go.errors}}</p>
+                        </div>
+                    </div>
+                    <div class="list card">
+                        <div class="item item-divider">
+                            Progress
+                        </div>
+                        <div class="item">
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" ng-class="{active:go.progress>0 && go.progress<100}" ng-style="{width: go.progress+'%'}">
+                                    <span class="sr-only">{{go.progress}} %</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="next">
+                        <button class="button button-outline button-balanced" ng-click="startCache()" ng-if="!go.stop">
+                            Start
+                        </button>
+                        <button class="button button-outline button-balanced" ng-click="stopCache()" ng-if="go.stop">
+                            Stop
+                        </button>
+                    </div>
+                </div>
+            </ion-slide-page>
+        </ion-slides>
+        -->
+    </ion-content>
+</ion-modal-view>

@@ -1,0 +1,8 @@
+{
+  "name": "RapportFraStedet",
+  "ios_identifier": "id613008898",
+  "android_identifier": "dk.addin.RapportFraStedet",
+  "update": "start",
+  "content_url": "https://geo.os2geo.dk/couchdb/app-d2121ee08caf832b73a160f9ea022ad9/_design/web-1",
+  "min_native_interface": 209000
+}

@@ -1,12 +1,20 @@
 {
-  "name": "rfs2-shell",
+  "name": "RFS",
   "app_id": "",
+  "documentRoot": "app",
   "gulpStartupTasks": [
     "sass",
     "watch"
   ],
   "watchPatterns": [
-    "www/**/*",
-    "!www/lib/**/*"
+    "app/**/*",
+    "!app/lib/**/*"
+  ],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk",
+      "version": "12.41.296.5"
+    }
   ]
 }

@@ -1,0 +1,91 @@
+<ion-view title="Velkommen" hide-nav-bar="true">
+    <ion-content>
+        <ion-slides slider="slider">
+            <ion-slide-page>
+                <div class="wizard">
+                    <div class="wizard-content center">
+                        <h1>Velkommen til</h1>
+                        <h1>Rapport Fra Stedet</h1>
+                        <br>
+                        <p>Har du set noget som ikke er i orden?</p>
+                        <p>Rapporter her, så hjælper du med at holde kommunen kørende.</p>
+                        <p>App'en guider dig igennem 4 trin for at foretage en indberetning.</p>
+                    </div>
+                    <div class="next">
+                        <button class="button button-outline button-positive" ng-click="slider.slideNext()">
+                            Næste
+                        </button>
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page>
+                <div class="wizard">
+                    <div class="wizard-content center">
+                        <h1 class="circle">1</h1>
+                        <h1>Vælg kommune</h1>
+                        <br>
+                        <p>Vælg først den kommune hvori du vil foretage en indberetning.</p>
+                        <p>Det er ikke alle kommuner der kan indberettes til via denne app.</p>
+                        <p>Vælg en kommune på listen.</p> 
+                    </div>
+                    <div class="next">
+                        <button class="button button-outline button-positive" ng-click="slider.slideNext()">
+                            Næste
+                        </button>
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page>
+                <div class="wizard">
+                    <div class="wizard-content center">
+                        <h1 class="circle">2</h1>
+                        <h1>Vælg tema</h1>
+                        <br>
+                        <p>Hver kommune giver adgang til forskellige indberetningstemaer.</p>
+                        <p>Vælg det tema på listen som din indberetning omhandler.</p>
+                    </div>
+                    <div class="next">
+                        <button class="button button-outline button-positive" ng-click="slider.slideNext()">
+                            Næste
+                        </button>
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page>
+                <div class="wizard">
+                    <div class="wizard-content center">
+                        <h1 class="circle">3</h1>
+                        <h1>Angiv placering</h1>
+                        <br>
+                        <p>Angiv den geografiske placering af indberetningen på et kort.</p>
+                        <p>Brug <i class="icon ion-edit"></i> nederst i kortvinduet til at placere din indberetning.</p>
+                        <p>Tryk på <i class="icon ion-chevron-right"></i> når du har placeret din indberetning.</p>
+                    </div>
+                    <div class="next">
+                        <button class="button button-outline button-positive" ng-click="slider.slideNext()">
+                            Næste
+                        </button>
+                    </div>
+                </div>
+            </ion-slide-page>
+            <ion-slide-page>
+                <div class="wizard">
+                    <div class="wizard-content center">
+                        <h1 class="circle">4</h1>
+                        <h1>Udfyld formular</h1>
+                        <br>
+                        <p>Udfyld til sidst formularen med dine iagtagelser.</p>
+                        <p>Ved nogle indberetningstyper kan der også vedhæftes foto.</p>
+                        <p>Tryk på gem for at sende din indberetning til kommunen.</p>
+                        <p>Du kan få adgang til flere funktioner ved at trykke på <i class="icon ion-navicon"></i> øverst i app'en.</p>
+                    </div>
+                    <div class="next">
+                        <button class="button button-outline button-positive" ng-click="start()">
+                            Start
+                        </button>
+                    </div>
+                </div>
+            </ion-slide-page>
+        </ion-slides>
+    </ion-content>
+</ion-view>

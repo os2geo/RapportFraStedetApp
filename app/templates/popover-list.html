@@ -1,0 +1,24 @@
+<ion-popover-view>
+    <ion-header-bar class="bar bar-header bar-balanced">
+        <h1 class="title">Indstillinger</h1>
+        <button class="button button-clear" ng-click="popover.hide()">Luk</button>
+    </ion-header-bar>
+    <ion-content>
+        <div class="list">
+            <div class="item item-divider item-dark">
+                Sortering
+            </div>
+            <ion-radio ng-model="data.selectedSortering" ng-value="'distance'" ng-click="data.selectSort('distance')">Afstand</ion-radio>
+            <ion-radio ng-model="data.selectedSortering" ng-value="field" ng-click="data.selectSort(field)" ng-repeat="field in widget.list">{{listSchemas['db-'+widget.database][field].title}}</ion-radio>
+            <div class="item item-divider item-dark">
+                Filtrering
+            </div>
+            <div ng-repeat="field in listFilters[data.id]">
+                <div class="item item-divider">
+                    {{field.title||field.key}}
+                </div>
+                <ion-checkbox ng-model="field.checked[item]" ng-change="data.filterChange(field)" ng-repeat="item in field.enum">{{item}}</ion-checkbox>
+            </div>
+        </div>
+    </ion-content>
+</ion-popover-view>

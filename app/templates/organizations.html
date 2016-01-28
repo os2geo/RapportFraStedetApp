@@ -1,0 +1,15 @@
+<ion-view >
+    <ion-nav-title>
+      <div class="title"><i class="circle">1</i>Vælg kommune</div>
+    </ion-nav-title>
+    <ion-content>
+        <ion-list>
+            <div ng-repeat="row in rows | orderBy:'n'">
+                <ion-item class="item-icon-right item-avatar" ui-sref="menu.organization({organization:row._id})">
+                    <img ng-src="{{row.l}}" class="no-radius"> {{row.n}}
+                    <i class="icon ion-ios-arrow-right"></i>
+                </ion-item>
+            </div>
+        </ion-list>
+    </ion-content>
+</ion-view>

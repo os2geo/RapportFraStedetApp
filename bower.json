@@ -1,97 +1,25 @@
 {
-  "name": "rfs2-shell",
+  "name": "HelloIonic",
   "private": "true",
   "devDependencies": {
-    "ionic": "driftyco/ionic-bower#1.0.0-beta.13"
+    "ionic": "driftyco/ionic-bower#master"
   },
   "dependencies": {
-    "proj4": "~2.3.3",
-    "leaflet": "~0.7.3",
-    "angular-utf8-base64": "~0.0.4",
-    "angular": "~1.3.14",
-    "angular-animate": "~1.3.14",
-    "angular-sanitize": "~1.3.14",
-    "angular-ui-router": "~0.2.13",
-    "angular-i18n": "~1.3.14",
-    "tv4": "1.1.4",
-    "proj4leaflet": "~0.7.0",
-    "leaflet-draw": "tablackmore/Leaflet.draw#touch",
-    "ngCordova": "~0.1.10-alpha",
-    "Leaflet.functionaltilelayer": "runetvilum/Leaflet.functionaltilelayer#tileNumBounds",
+    "angular-i18n": "~1.4.5",
+    "angular-utf8-base64": "~0.0.5",
+    "leaflet": "leaflet/leaflet#master",
+    "proj4leaflet": "runetvilum/Proj4Leaflet#leaflet-proj-refactor",
     "leaflet-usermarker": "heyman/leaflet-usermarker#master",
-    "pouchdb-quick-search": "~1.0.2",
-    "turf": "~2.0.0",
-    "pouchdb": "~3.4.0",
-    "leaflet.markercluster": "~0.4.0"
-  },
-  "preen": {
-    "angular": [
-      "angular.min.js"
-    ],
-    "angular-i18n": [
-      "angular-locale_da-dk.js"
-    ],
-    "angular-animate": [
-      "angular-animate.min.js"
-    ],
-    "angular-sanitize": [
-      "angular-sanitize.min.js"
-    ],
-    "angular-ui-router": [
-      "release/angular-ui-router.min.js"
-    ],
-    "angular-utf8-base64": [
-      "angular-utf8-base64.min.js"
-    ],
-    "collide": [
-      "collide.js"
-    ],
-    "ionic": [
-      "fonts/*",
-      "js/ionic-angular.js",
-      "js/ionic.min.js"
-    ],
-    "leaflet": [
-      "dist/leaflet.*",
-      "dist/images/*"
-    ],
-    "leaflet.markercluster": [
-      "dist/leaflet.markercluster.js",
-      "dist/MarkerCluster.css",
-      "dist/MarkerCluster.Default.css"
-    ],
-    "leaflet.functionaltilelayer": [
-      "src/*"
-    ],
-    "proj4": [
-      "dist/proj4.js"
-    ],
-    "proj4leaflet": [
-      "src/proj4leaflet.js"
-    ],
-    "ngCordova": [
-      "dist/ng-cordova.min.js"
-    ],
-    "tv4": [
-      "tv4.js"
-    ],
-    "leaflet-draw": [
-      "src/dom/*",
-      "src/draw/handler/*"
-    ],
-    "pouchdb": [
-      "dist/pouchdb.memory.min.js"
-    ],
-    "pouchdb-quick-search": [
-      "dist/pouchdb.quick-search.min.js"
-    ],
-    "turf": [
-      "turf.min.js"
-    ],
-    "leaflet-usermarker": [
-      "src/img/bluedot.png",
-      "src/leaflet.usermarker.css",
-      "src/leaflet.usermarker.js"
-    ]
+    "leaflet-cache": "runetvilum/leaflet-cache#master",
+    "leaflet.markercluster": "Leaflet/Leaflet.markercluster#1.0.0-beta.2.0",
+    "socket.io-client": "~1.3.7",
+    "turf": "~2.0.2",
+    "tv4": "~1.2.5",
+    "ngstorage": "~0.3.9",
+    "lie": "~3.0.1",
+    "blob-util": "~1.1.2",
+    "node-uuid": "~1.4.4",
+    "ua-parser-js": "~0.7.9",
+    "leaflet.editable": "Leaflet/Leaflet.Editable#gh-pages"
   }
 }

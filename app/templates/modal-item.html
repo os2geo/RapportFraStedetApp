@@ -1,0 +1,101 @@
+<ion-modal-view>
+    <ion-header-bar class="bar bar-header bar-dark">
+        <div class="buttons pull-right">
+            <!--
+            <button class="button button-clear" ng-click="remove(doc)" ng-if="overlay.replicateFrom && overlay.replicateTo && doc._id && overlay.allowRemove">Slet</button>
+            -->
+            <button class="button button-clear" ng-click="submit()">Gem</button>
+            <button class="button button-clear" ng-click="startOpgave()" ng-if="showStart">Start</button>
+        </div>
+        <button class="button button-clear" ng-click="close('modal-item')">Luk</button>
+        <!--h1 class="title">Formular</h1-->
+    </ion-header-bar>
+    <ion-content class="padding formular">
+        <div class="formular" ng-repeat="item in fields" ng-init="key=item.key;prop=item.prop;title=item.title;required=item.required;field=item.field">
+
+            <h3>{{title}} <i ng-if="required" class="ion-asterisk required"></i></h3>
+
+            <!-- text -->
+            <ion-input class="item item-input" ng-if="field.type==='text'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled && !field.readonly}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="text" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- email -->
+            <ion-input class="item item-input" ng-if="field.type==='email'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="email" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- url -->
+            <ion-input class="item item-input" ng-if="field.type==='url'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="url" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- datetime-local -->
+            <ion-input class="item item-input" ng-if="field.type==='datetime-local'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="datetime-local" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- date -->
+            <ion-input class="item item-input" ng-if="field.type==='date'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="date" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- time -->
+            <ion-input class="item item-input" ng-if="field.type==='time'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="time" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- timestamp -->
+            <ion-input class="item item-input" ng-if="field.type==='timestamp'">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="datetime-local" placeholder="{{field.placeholder}}" disabled>
+            </ion-input>
+
+            <!-- number -->
+            <ion-input class="item item-input" ng-if="field.type==='number'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <input name={{key}} id="{{key}}" ng-model="doc.properties[key]" type="number" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled">
+            </ion-input>
+
+            <!-- textarea -->
+            <ion-input class="item item-input" ng-if="field.type==='textarea'" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                <textarea ng-model="doc.properties[key]" placeholder="{{field.placeholder}}" ng-disabled="field.readonly || disabled" rows="10"></textarea>
+            </ion-input>
+
+            <!-- checkbox -->
+            <ion-checkbox class="single" ng-class="{'checkbox-assertive': valid.properties.$error.params.key===key && !disabled, 'checkbox-energized':(required && valid.properties.$error.params.key!==key && !disabled)}"
+            ng-model="doc.properties[key]" ng-change="changeCheckbox(key)" ng-disabled="field.readonly || disabled" ng-if="(field.type==='checkbox' && prop.type==='boolean')"
+            ng-class="{'required-error': valid[key].$error && !disabled}">{{title}}</ion-checkbox>
+
+            <!-- checkbox array -->
+            <div ng-if="(field.type==='checkbox' && prop.type==='array')">
+                <ion-checkbox name="{{key}}" ng-model="doc.properties[key][$index]" ng-disabled="field.readonly || disabled" ng-repeat="item in prop.items">{{item.title}}</ion-checkbox>
+            </div>
+
+            <!-- radio -->
+            <div ng-if="field.type==='radio'">
+                <ion-radio class="item-text-wrap" ng-model="doc.properties[key]" name="{{key}}" ng-value="option" ng-disabled="field.readonly || disabled"
+                ng-repeat="option in prop.enum" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">{{option}}</ion-radio>
+            </div>
+
+            <!-- select -->
+            <div ng-if="field.type==='select'">
+                <ion-input class="item item-input item-select" ng-class="{'required-error': valid.properties.$error.params.key===key && !disabled}">
+                    <select ng-options="option for option in prop.enum" ng-model="doc.properties[key]" ng-disabled="field.readonly || disabled">
+                    </select>
+                </ion-input>
+            </div>
+
+            <!-- file -->
+            <div ng-if="field.type==='file'">
+                <div class="item item-button-right foto" ng-class="{'required-error': valid.$error.params.key===key && !disabled}" style="min-height:50px">
+                    <img ng-src="{{files[key].src}}" style="max-height: 100px" ng-show="files[key].src">
+                    <button class="button button-stable" ng-click="openFileDialog(key)" ng-if="!field.readonly && !disabled">
+                        <i class="icon ion-ios-camera "></i>
+                    </button>
+                </div>
+                <input id="{{key}}" type="file" style="display:none">
+            </div>
+            <!--/div-->
+        </div>
+        <div class="fyld"></div>
+    </ion-content>
+</ion-modal-view>

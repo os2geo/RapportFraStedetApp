@@ -1,0 +1,44 @@
+<ion-modal-view>
+
+    <div class="bar bar-header bar-dark">
+        <div class="buttons pull-right">
+            <button class="button button-icon icon" ng-class="{'ion-chevron-down':data.ascending,'ion-chevron-up':!data.ascending}" ng-click="data.sort()"></button>
+            <button class="button button-icon icon ion-ios-more" ng-click="popover.show($event)"></button>
+        </div>
+        <button class="button button-clear" ng-click="listOpen=false;close(widget.id)">Luk</button>
+        <h2 class="title">{{widget.name}}</h2>
+    </div>
+    <div class="bar bar-dark bar-subheader item-input-inset">
+        <label class="item-input-wrapper">
+            <i class="icon ion-ios-search placeholder-icon"></i>
+            <input type="search" placeholder="Søg" ng-model="data.searchInput" ng-change="data.searchChange()">
+        </label>
+    </div>
+
+    <ion-content class="has-subheader">
+        <ion-list can-swipe="user">
+            <ion-item class="item-icon-right" ng-repeat="doc in data.pag_rows" ng-click="selectItem(data.id, doc['/_id'])">
+                <div class="row responsive-md">
+                    <div class="col" ng-if="doc.distance">
+                        <h2 class="title positive">Afstand</h2>
+                        <p>{{doc.distance|distance}}</p>
+                    </div>
+                    <div class="col" ng-repeat="field in overlays[widget.id].list">
+                        <h2 class="title positive">{{listSchemas['db-'+widget.database][field].title}}</h2>
+                        <p ng-if="field.indexOf('/_attachments')!==0">{{doc[field]}}</p>
+                        <img ng-src="{{doc[field+'/data']}}" ng-if="field.indexOf('/_attachments')===0">
+                    </div>
+                </div>
+                <i class="icon ion-ios-arrow-right"></i>
+                
+                <ion-option-button class="button-positive" ng-click="clickEdit($event,data.id, doc['/_id'])">
+                    <div class="icon ion-edit"></div>
+                </ion-option-button>
+                <ion-option-button class="button-assertive" ng-click="clickDelete($event, data.id, doc['/_id'])" ng-if="widget.allowRemove">
+                    <div class="icon ion-trash-a"></div>
+                </ion-option-button>
+            </ion-item>
+        </ion-list>
+        <ion-infinite-scroll on-infinite="data.loadMoreList()" distance="1%" ng-if="data.canLoadMoreList">
+    </ion-content>
+</ion-modal-view>
