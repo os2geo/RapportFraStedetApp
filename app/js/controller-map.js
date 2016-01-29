@@ -2461,6 +2461,7 @@ function popupLink(url) {
             }
         };
         var createOverlays = function (overlay) {
+            overlay.list = overlay.list || [];
             for (var i = 0; i < overlay.list.length; i++) {
                 var key = overlay.list[i];
                 if (key.indexOf('/_attachments') === 0){
@@ -2632,7 +2633,8 @@ function popupLink(url) {
 
                             if (field.indexOf('/_attachments') === 0) {
                                 if (doc.hasOwnProperty(field + '/data')) {
-                                    content += '<tr class="' + row + '"><td class="positive bold">' + listSchema[field].title + '</td>';
+                                    var kn = '/_attachments/'+field.substring(17);
+                                    content += '<tr class="' + row + '"><td class="positive bold">' + listSchema[kn].title + '</td>';
                                     content += '<td><a style="cursor:pointer" onclick="popupImage(\'' + overlay.database + '\',\'' + layer.feature._id + '\',\'' + field + '\')"><img src="' + doc[field + '/data'] + '"></a</td></tr>';
                                     if (row === 'even') {
                                         row = 'odd';
