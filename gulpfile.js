@@ -192,6 +192,7 @@ gulp.task('compress', function () {
 gulp.task('minify', ['template-cache'], function () {
     return gulp.src([
         'app/js/angular-ios9-uiwebview.patch.js',
+        'app/js/tv4-da.js',
         'app/js/idb-database.js',
         'app/js/idb.js',
         'app/js/leaflet.zoomdisplay.js',
