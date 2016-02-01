@@ -2055,12 +2055,12 @@ function popupLink(url) {
         var buildSchemaKeys = function (node, parent, doc) {
             for (var key in node) {
                 var localnode = node[key];
-                if (localnode.properties) {
-                    buildSchemaKeys(localnode.properties, parent + '/' + key, doc);
-                    //buildSchemaKeys(localnode.properties, parent + key + '/', doc);
-                } else if (localnode.oneOf && localnode.oneOf.length > 0) {
+                if (localnode.oneOf && localnode.oneOf.length > 0) {
                     buildSchemaKeys(localnode.oneOf[0].properties, parent + '/' + key, doc);
                     //buildSchemaKeys(localnode.oneOf[0].properties, parent + key + '/', doc);
+                } else if (localnode.properties) {
+                    buildSchemaKeys(localnode.properties, parent + '/' + key, doc);
+                    //buildSchemaKeys(localnode.properties, parent + key + '/', doc);
                 } else {
                     doc[parent + '/' + key] = {
                         title: localnode.title || key,
