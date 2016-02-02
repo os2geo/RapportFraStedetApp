@@ -1,9 +1,9 @@
 <ion-view title="Login">
-    <ion-nav-bar class="bar-dark">
+    <!--ion-nav-bar class="bar-dark">
             <ion-nav-buttons side="left">
                 <button class="button button-clear" ng-click="cancel()">Fortryd</button>
             </ion-nav-buttons>
-        </ion-nav-bar>
+        </ion-nav-bar-->
     <ion-content>
         <form data-ng-submit="doLogin(name,password)" novalidate>
             <div class="list">
@@ -19,9 +19,13 @@
             <div class="padding">
                 <button type="submit" class="button button-block button-positive">Login</button>
             </div>
-            <div class="padding assertive" ng-show="loginError">
-                {{loginError}}
-            </div>
+
         </form>
+        <div class="padding">
+            <button class="button button-block button-outline button-positive" ng-click="forgot(name)">Glemt password</button>
+        </div>
+        <div class="padding assertive" ng-show="loginError">
+            {{loginError}}
+        </div>
     </ion-content>
 </ion-view>

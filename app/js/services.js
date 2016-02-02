@@ -47,7 +47,7 @@
                 }
                 console.log('[js] GeoLocation callback:  ' + location.latitude + ',' + location.longitude);
                 $rootScope.$emit('locationfound', location);
-                
+
             };
             var successPlugin = function (location) {
                 if (location.coords) {
@@ -55,7 +55,7 @@
                 }
                 console.log('[js] BackgroundGeoLocation callback:  ' + location.latitude + ',' + location.longitude);
                 $rootScope.$emit('locationfound', location);
-                
+
             };
             var error = function (err) {
                 console.log('BackgroundGeoLocation error');
@@ -78,9 +78,9 @@
             };
             return {
                 init: function () {
-                    
+
                     if (window.cordova) {
-                        
+
                         backgroundGeoLocation.configure(successPlugin, error, {
                             desiredAccuracy: 0,
                             stationaryRadius: 0,
@@ -88,8 +88,8 @@
                             activityType: 'AutomotiveNavigation',
                             debug: true, // <-- enable this hear sounds for background-geolocation life-cycle. 
                             stopOnTerminate: true, // <-- enable this to clear background location settings when the app terminates
-                            /*locationService:*/ 
-                            fastestInterval: 5000 
+                            /*locationService:*/
+                            fastestInterval: 5000
                         });
                         backgroundGeoLocation.isLocationEnabled(successIsLocationEnabled, errorIsLocationEnabled);
                         backgroundGeoLocation.watchLocationMode(successIsLocationEnabled, errorWatchLocationMode);
@@ -119,7 +119,7 @@
                 }
             }
         })
-        .factory('socket', function ($localStorage, $rootScope, $ionicModal, $timeout, databases, $ionicSideMenuDelegate) {
+        .factory('socket', function ($localStorage, $rootScope, $ionicModal, $timeout, databases, $ionicSideMenuDelegate, $ionicPopup) {
             var socket;
             var $scope = $rootScope.$new();
             //var url = 'http://localhost:9000';
@@ -155,11 +155,11 @@
                 authenticate();
                 join();
             });
-            socket.on('disconnect',function(e){
-                console.log('disconnect',e);
+            socket.on('disconnect', function (e) {
+                console.log('disconnect', e);
             });
-            socket.on('reconnect',function(e){
-                console.log('reconnect',e);
+            socket.on('reconnect', function (e) {
+                console.log('reconnect', e);
             });
             socket.on('queue', function (id) {
                 queue.delete('data', id).then(function () {
@@ -215,6 +215,27 @@
                     n: name,
                     p: password
                 });
+            };
+            $rootScope.forgot = function (name) {
+                if (name) {
+                    var confirmPopup = $ionicPopup.confirm({
+                        title: 'Glemt password',
+                        template: 'Vil du nulstille dit password?<br>Der sendes en email med link til at lave nyt password.'
+                    });
+                    confirmPopup.then(function (res) {
+                        if (res) {
+                            socket.emit('forgot', name);
+                            socket.once('forgot', function (data) {
+                                $rootScope.loginError = data;
+                                $rootScope.$apply();
+                            });
+                        } else {
+                            console.log('You are not sure');
+                        }
+                    });
+                } else {
+                    $rootScope.loginError = 'Indtast gyldig email som brugernavn.';
+                }
             };
             return {
 

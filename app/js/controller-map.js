@@ -2648,7 +2648,7 @@ function popupLink(url) {
                                     value = doc[field];
                                 }
                                 content += '<tr class="' + row + '"><td class="text positive bold">' + listSchema[field].title + '</td>';
-                                if (listSchema[field].node && listSchema[field].node.format === 'uri' && value) {
+                                if (value && ((listSchema[field].node && listSchema[field].node.format === 'uri') || (value.indexOf('http://')===0 || value.indexOf('https://')===0))) {
                                     content += '<td><a style="cursor:pointer" onclick="popupLink(\'' + value + '\')">' + value + '</a></td>';
                                 } else if (value) {
                                     content += '<td>' + value + '</td>';
