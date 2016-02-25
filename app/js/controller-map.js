@@ -2648,7 +2648,7 @@ function popupLink(url) {
                                     value = doc[field];
                                 }
                                 content += '<tr class="' + row + '"><td class="text positive bold">' + listSchema[field].title + '</td>';
-                                if (value && ((listSchema[field].node && listSchema[field].node.format === 'uri') || (value.indexOf('http://')===0 || value.indexOf('https://')===0))) {
+                                if (typeof value === 'string' && ((listSchema[field].node && listSchema[field].node.format === 'uri') || (value.indexOf('http://')===0 || value.indexOf('https://')===0))) {
                                     content += '<td><a style="cursor:pointer" onclick="popupLink(\'' + value + '\')">' + value + '</a></td>';
                                 } else if (value) {
                                     content += '<td>' + value + '</td>';
@@ -2701,7 +2701,7 @@ function popupLink(url) {
                 if (_configuration.hasOwnProperty('_attachments') && _configuration._attachments.hasOwnProperty(overlay.id + '.geojson')) {
                     leaflet = L.geoJson(_configuration._attachments[overlay.id + '.geojson'].data, jsonTransformed);
                     if (overlay.markercluster) {
-                        overlay.leaflet = new L.MarkerClusterGroup();
+                        overlay.leaflet = new L.MarkerClusterGroup(jsonTransformed);
                         overlay.leaflet.addLayer(leaflet);
                     } else {
                         overlay.leaflet = leaflet;
