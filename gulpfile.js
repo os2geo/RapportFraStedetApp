@@ -82,6 +82,7 @@ var copyWeb = function (sti) {
     merged.add(gulp.src('./app/lib/leaflet-cache/{L.Icon.Cache.Blob,L.TileLayer.Cache.Blob10}.js').pipe(gulp.dest(sti + '/lib/leaflet-cache')));
     merged.add(gulp.src('./app/lib/leaflet-usermarker/src/**/*.*').pipe(gulp.dest(sti + '/lib/leaflet-usermarker/src')));
     merged.add(gulp.src('./app/lib/leaflet.editable/src/Leaflet.Editable.js').pipe(gulp.dest(sti + '/lib/leaflet.editable/src')));
+    merged.add(gulp.src('./app/lib/Leaflet.MakiMarkers/Leaflet.MakiMarkers.js').pipe(gulp.dest(sti + '/lib/Leaflet.MakiMarkers')));    
     merged.add(gulp.src('./app/lib/leaflet.markercluster/dist/{*.css,leaflet.markercluster.js}').pipe(gulp.dest(sti + '/lib/leaflet.markercluster/dist')));
     merged.add(gulp.src('./app/lib/lie/dist/lie.polyfill.min.js').pipe(gulp.dest(sti + '/lib/lie/dist')));
     merged.add(gulp.src('./app/lib/ngCordova/dist/ng-cordova.min.js').pipe(gulp.dest(sti + '/lib/ngCordova/dist')));

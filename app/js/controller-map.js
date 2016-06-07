@@ -498,6 +498,7 @@ function popupLink(url) {
                         var blob = new Blob([e.target.result], {
                             type: file.type
                         });
+                        $scope.doc._attachments =$scope.doc._attachments || {}; 
                         $scope.doc._attachments[id] = {
                             'content_type': blob.type,
                             data: blob
@@ -554,7 +555,7 @@ function popupLink(url) {
                             $scope.doc.properties[key] = new Date($scope.doc.properties[key]);
                         }
                     }
-                    break;
+                    //break;
                 } else if (field.id === '_attachments') {
                     for (var k = 0; k < field.fields.length; k++) {
                         var field3 = field.fields[k];
@@ -766,7 +767,7 @@ function popupLink(url) {
             //polyline = new L.Draw.PolylineTouch(_map);
             //polygon = new L.Draw.PolygonTouch(_map);
             //_crosshairLayer.addTo(_map);
-            if ($rootScope.widgets.indberetninger.start && !$stateParams.layer && !$stateParams.id) {
+            if ($rootScope.widgets.indberetninger && $rootScope.widgets.indberetninger.start && !$stateParams.layer && !$stateParams.id) {
                 $scope.showDraw();
             }
         };
@@ -2650,7 +2651,7 @@ function popupLink(url) {
                                 content += '<tr class="' + row + '"><td class="text positive bold">' + listSchema[field].title + '</td>';
                                 if (typeof value === 'string' && ((listSchema[field].node && listSchema[field].node.format === 'uri') || (value.indexOf('http://')===0 || value.indexOf('https://')===0))) {
                                     content += '<td><a style="cursor:pointer" onclick="popupLink(\'' + value + '\')">' + value + '</a></td>';
-                                } else if (value) {
+                                } else if (typeof value !== 'undefined') {
                                     content += '<td>' + value + '</td>';
                                 } else {
                                     content += '<td></td>';

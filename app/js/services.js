@@ -124,6 +124,7 @@
             var $scope = $rootScope.$new();
             //var url = 'http://localhost:9000';
             var url = 'https://geo.os2geo.dk';
+            //var url = 'https://addin.dk';
 
             var authenticate = function () {
                 if ($localStorage.hasOwnProperty('os2geo:jwt')) {

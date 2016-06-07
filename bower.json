@@ -20,6 +20,7 @@
     "blob-util": "~1.1.2",
     "node-uuid": "~1.4.4",
     "ua-parser-js": "~0.7.9",
-    "leaflet.editable": "Leaflet/Leaflet.Editable#gh-pages"
+    "leaflet.editable": "Leaflet/Leaflet.Editable#gh-pages",
+    "Leaflet.MakiMarkers": "^1.0.1"
   }
 }
