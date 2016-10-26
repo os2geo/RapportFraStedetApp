@@ -2,6 +2,7 @@ var express = require('express'),
     cors = require('cors'),
     app = express(),
     request = require('request');
+//app.use(express["static"](__dirname+'/app'));
 app.use(express["static"](__dirname+'/www'));
 app.all('/couchdb*', function (req, res) {
 

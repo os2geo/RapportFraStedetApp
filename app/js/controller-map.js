@@ -498,7 +498,7 @@ function popupLink(url) {
                         var blob = new Blob([e.target.result], {
                             type: file.type
                         });
-                        $scope.doc._attachments =$scope.doc._attachments || {}; 
+                        $scope.doc._attachments = $scope.doc._attachments || {};
                         $scope.doc._attachments[id] = {
                             'content_type': blob.type,
                             data: blob
@@ -508,9 +508,10 @@ function popupLink(url) {
                     };
                     fileReader.readAsArrayBuffer(file);
                 });
-                ionic.trigger('click', {
+                /*ionic.trigger('click', {
                     target: file
-                });
+                });*/
+                file.click();
             }
         };
         var editFeature;
@@ -618,8 +619,8 @@ function popupLink(url) {
 
             //item.enableEdit();
             //item.closePopup();
-            
-            
+
+
             /*if (_modals.hasOwnProperty('modal-item')) {
                 _modals['modal-item'].show();
             } else {
@@ -789,12 +790,12 @@ function popupLink(url) {
                 if ($scope.opgave) {
                     $scope.doc.properties.opgave = $scope.opgave;
                 }
-                
+
                 //$scope.data = $rootScope.data[layer];
                 //$scope.validateschema = $rootScope.validateschemas[layer].schema;
                 //$scope.overlay = $rootScope.overlays[layer];
                 //$scope.schema = $rootScope.schemas[layer];
-                
+
 
                 $ionicModal.fromTemplateUrl('templates/modal-draw.html', {
                     scope: $scope,
@@ -820,7 +821,7 @@ function popupLink(url) {
             }
             //$scope.validateGeometry();
         };*/
-        
+
 
         /*var mapDrawCreated = function (e) {
 
@@ -1030,8 +1031,8 @@ function popupLink(url) {
             }
             if (geojson.features.length > 0) {
                 var geom = geojson.features[0].geometry;
-            
-            
+
+
                 /*if ($rootScope.straks.hasOwnProperty($rootScope.overlays[$scope.layer].database)) {
                   $scope.straks = $rootScope.straks[$rootScope.overlays[$scope.layer].database];
                 }*/
@@ -1588,7 +1589,7 @@ function popupLink(url) {
                     $scope.canLoadMore = true;
                     // we start over searching in vejnavne (index 0) if the current query is not a prefix of
                     // the previous one.
-                    
+
 
                     invokeSource(0, '', awsResponse);
                     //search();
@@ -1605,7 +1606,7 @@ function popupLink(url) {
 
 
 
-        
+
 
         //endregion
 
@@ -1781,43 +1782,102 @@ function popupLink(url) {
             }
         };
         //region Tracking
-        $rootScope.tracking = function () {
-            if (!$rootScope.widgets.tracking.checked) {
-                if (window.cordova) {
-                    //backgroundGeoLocation.stop();
-                }
-            } else {
 
-
-                if ($rootScope.widgets.opgaver) {
-                    if ($scope.opgave) {
-                        _map._locateOptions.setView = true;
-                        setView();
-                        if (window.cordova) {
-                            //backgroundGeoLocation.start();
-                        }
-                    } else {
-                        //revert
-                        $rootScope.widgets.tracking.checked = !$rootScope.widgets.tracking.checked;
-                        if (!alertPopup) {
-                            alertPopup = $ionicPopup.alert({
-                                title: 'Advarsel',
-                                template: 'Du skal først vælge en opgave!'
-                            }).then(function () {
-                                alertPopup = null;
-                            });
-                        }
-                    }
-                } else {
+        $scope.startTracking = function () {
+            $scope.docTracking = angular.copy($scope.doc);
+            _modals['modal-item'].hide();
+            $rootScope.widgets.tracking.checked = !$rootScope.widgets.tracking.checked;
+            if ($rootScope.widgets.opgaver) {
+                if ($scope.opgave) {
                     _map._locateOptions.setView = true;
                     setView();
                     if (window.cordova) {
                         //backgroundGeoLocation.start();
                     }
+                } else {
+                    //revert
+                    $rootScope.widgets.tracking.checked = !$rootScope.widgets.tracking.checked;
+                    if (!alertPopup) {
+                        alertPopup = $ionicPopup.alert({
+                            title: 'Advarsel',
+                            template: 'Du skal først vælge en opgave!'
+                        }).then(function () {
+                            alertPopup = null;
+                        });
+                    }
+                }
+            } else {
+                _map._locateOptions.setView = true;
+                setView();
+                if (window.cordova) {
+                    //backgroundGeoLocation.start();
+                }
+            }
+        }
+        $rootScope.tracking = function (toggle) {
+            if (toggle) {
+                $rootScope.widgets.tracking.checked = !$rootScope.widgets.tracking.checked;
+            }
+            if ($rootScope.widgets.tracking.checked) {
+                $rootScope.widgets.tracking.checked = !$rootScope.widgets.tracking.checked;
+                if (window.cordova) {
+                    //backgroundGeoLocation.stop();
+                }
+            } else {
+
+                $scope.showStart = true;
+
+                $scope.layer = $rootScope.widgets.tracking.layer;
+                $scope.fields = [];
+                $scope.files = {};
+                reset();
+
+                var overlay = $rootScope.overlays[$scope.layer];
+                var formSchema = $scope.formSchemas['db-' + overlay.database]
+                for (var i = 0; i < overlay.form.length; i++) {
+                    var field = overlay.form[i];
+                    if (field.id === '_attachments' || field.id === 'properties') {
+                        $scope.doc[field.id] = {};
+                        for (var j = 0; j < field.fields.length; j++) {
+                            var field2 = field.fields[j];
+                            var key = field2.id;
+                            var prop = formSchema.properties[field.id].properties[key];
+                            var required = (formSchema.properties[field.id].required && formSchema.properties[field.id].required.indexOf(key) !== -1);
+                            $scope.fields.push({
+                                field: field2,
+                                key: key,
+                                prop: prop,
+                                title: prop.title || key,
+                                required: required
+                            });
+                        }
+                    }
+                }
+                for (var key in formSchema.properties.properties.properties) {
+                    var prop = formSchema.properties.properties.properties[key];
+                    if (typeof prop.format !== 'undefined' && prop.format === 'date-time') {
+                        $scope.doc.properties[key] = new Date();
+                    } else if (typeof prop.default !== 'undefined') {
+                        $scope.doc.properties[key] = prop.default;
+                    }
+                }
+
+
+
+                if (_modals.hasOwnProperty('modal-item')) {
+                    _modals['modal-item'].show();
+                } else {
+                    $ionicModal.fromTemplateUrl('templates/modal-item.html', {
+                        scope: $scope,
+                        backdropClickToClose: false
+                    }).then(function (modal) {
+                        _modals['modal-item'] = modal;
+                        modal.show();
+                    });
                 }
             }
         };
-       
+
         //endregion
         /********
          * Position
@@ -1921,19 +1981,16 @@ function popupLink(url) {
         var saveTrack = function (pos) {
             if (($rootScope.widgets.tracking.interval && lastpos && (pos.timestamp - lastpos.timestamp > $rootScope.widgets.tracking.interval)) || !$rootScope.widgets.tracking.interval || !lastpos) {
                 lastpos = pos;
-                var doc = {
-                    _id: uuid.v4(),
-                    type: "Feature",
-                    geometry: {
-                        type: 'Point',
-                        coordinates: [pos.longitude, pos.latitude]
-                    },
-                    properties: {
-                        timestamp: (new Date(pos.timestamp)).toJSON(),
-                        accuracy: pos.accuracy
-
-                    }
+                var doc = $scope.docTracking;
+                doc._id = uuid.v4();
+                doc.geometry = {
+                    type: 'Point',
+                    coordinates: [pos.longitude, pos.latitude]
                 };
+                doc.properties = $scope.docTracking.properties || {};
+                doc.properties.timestamp = (new Date(pos.timestamp)).toJSON();
+                doc.properties.accuracy = pos.accuracy;
+
                 if ($scope.opgave) {
                     doc.properties.opgave = $scope.opgave;
                 }
@@ -2465,8 +2522,8 @@ function popupLink(url) {
             overlay.list = overlay.list || [];
             for (var i = 0; i < overlay.list.length; i++) {
                 var key = overlay.list[i];
-                if (key.indexOf('/_attachments') === 0){
-                    if(key.length > 17) {
+                if (key.indexOf('/_attachments') === 0) {
+                    if (key.length > 17) {
                         var s = key.substring(14, 17);
                         if (s !== 'tn_') {
                             overlay.list[i] = '/_attachments/tn_' + key.substring(14);
@@ -2515,7 +2572,7 @@ function popupLink(url) {
                                 createOverlays(overlay);
 
                             }
-                            
+
                             //reset();
                         });
                         break;
@@ -2634,7 +2691,7 @@ function popupLink(url) {
 
                             if (field.indexOf('/_attachments') === 0) {
                                 if (doc.hasOwnProperty(field + '/data')) {
-                                    var kn = '/_attachments/'+field.substring(17);
+                                    var kn = '/_attachments/' + field.substring(17);
                                     content += '<tr class="' + row + '"><td class="positive bold">' + listSchema[kn].title + '</td>';
                                     content += '<td><a style="cursor:pointer" onclick="popupImage(\'' + overlay.database + '\',\'' + layer.feature._id + '\',\'' + field + '\')"><img src="' + doc[field + '/data'] + '"></a</td></tr>';
                                     if (row === 'even') {
@@ -2649,7 +2706,7 @@ function popupLink(url) {
                                     value = doc[field];
                                 }
                                 content += '<tr class="' + row + '"><td class="text positive bold">' + listSchema[field].title + '</td>';
-                                if (typeof value === 'string' && ((listSchema[field].node && listSchema[field].node.format === 'uri') || (value.indexOf('http://')===0 || value.indexOf('https://')===0))) {
+                                if (typeof value === 'string' && ((listSchema[field].node && listSchema[field].node.format === 'uri') || (value.indexOf('http://') === 0 || value.indexOf('https://') === 0))) {
                                     content += '<td><a style="cursor:pointer" onclick="popupLink(\'' + value + '\')">' + value + '</a></td>';
                                 } else if (typeof value !== 'undefined') {
                                     content += '<td>' + value + '</td>';
@@ -2668,7 +2725,7 @@ function popupLink(url) {
                         }
                         content += '</table>';
                         //var popup = layer.getPopup();
-                        
+
                         //var content = popup.getContent();
                         if (_configuration.hasOwnProperty('security') && $rootScope.hasOwnProperty('user') && _configuration.security.indexOf($rootScope.user.name) !== -1) {
                             content += '<div class="button-bar">';

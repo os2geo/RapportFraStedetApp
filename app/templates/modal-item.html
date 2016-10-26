@@ -4,8 +4,8 @@
             <!--
             <button class="button button-clear" ng-click="remove(doc)" ng-if="overlay.replicateFrom && overlay.replicateTo && doc._id && overlay.allowRemove">Slet</button>
             -->
-            <button class="button button-clear" ng-click="submit()">Gem</button>
-            <button class="button button-clear" ng-click="startOpgave()" ng-if="showStart">Start</button>
+            <button class="button button-clear" ng-click="submit()" ng-if="!showStart">Gem</button>
+            <button class="button button-clear" ng-click="startTracking()" ng-if="showStart">Start</button>
         </div>
         <button class="button button-clear" ng-click="close('modal-item')">Luk</button>
         <!--h1 class="title">Formular</h1-->

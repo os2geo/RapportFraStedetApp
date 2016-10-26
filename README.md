@@ -37,4 +37,9 @@ rm -f android-x86-release-unsigned.apk android-armv7-release-unsigned.apk
 cd ..
 ```
 
+    gulp minify
+    gordova-hcp build
+    gulp web-deploy
+
+
 

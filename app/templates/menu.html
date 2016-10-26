@@ -40,7 +40,7 @@
                         <i class="icon ion-flag"></i> {{item.name}}
                     </ion-item>
                     <ion-toggle class="item-dark item-icon-left" ng-model="item.checked" toggle-class="toggle-balanced" ng-if="item.id==='tracking'"
-                    ng-change="tracking()"><i class="icon ion-android-locate"></i> {{item.name}}</ion-toggle>
+                    ng-change="tracking(true)"><i class="icon ion-android-locate"></i> {{item.name}}</ion-toggle>
                     <ion-toggle class="item-dark item-icon-left" ng-model="item.show" toggle-class="toggle-balanced" ng-if="item.id==='position'"
                     ng-change="showPosition()"><i class="icon ion-navigate"></i> {{item.name}}</ion-toggle>
                 </div>
