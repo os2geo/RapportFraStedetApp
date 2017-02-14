@@ -122,10 +122,16 @@
         .factory('socket', function ($localStorage, $rootScope, $ionicModal, $timeout, databases, $ionicSideMenuDelegate, $ionicPopup) {
             var socket;
             var $scope = $rootScope.$new();
+            
             //var url = 'http://localhost:9000';
+            //var url = 'https://geo.os2geo.dk';
             var url = 'https://geo.os2geo.dk';
-            //var url = 'https://addin.dk';
-
+            if (!window.cordova) {
+                var parts = window.location.hostname.split('.');
+                if (parts[0] === 'test' || parts.length === 1) {
+                    url = 'https://test.geo.os2geo.dk';
+                }
+            }
             var authenticate = function () {
                 if ($localStorage.hasOwnProperty('os2geo:jwt')) {
                     var profile = $localStorage['os2geo:jwt'].profile;

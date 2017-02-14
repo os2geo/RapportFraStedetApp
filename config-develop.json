@@ -1,0 +1,9 @@
+ {
+     "host": "test.geo.os2geo.dk",
+     "port": "80",
+     "attachments": "www",
+     "auth": {
+         "username": "admin",
+         "password": "wont775dock"
+     }
+ }

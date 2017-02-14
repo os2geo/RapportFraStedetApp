@@ -12,6 +12,7 @@ var processhtml = require('gulp-processhtml')
 var merge = require('merge-stream');
 var couchapp = require('gulp-couchapp');
 var config_web = require('./config-web.json');
+var config_develop = require('./config-develop.json');
 var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
@@ -69,7 +70,7 @@ var copyWeb = function (sti) {
     var merged = merge(gulp.src('./app/index_min.html').pipe(rename("index.html")).pipe(gulp.dest(sti)), gulp.src('./app/css/ionic.app.min.css').pipe(gulp.dest(sti + '/css')));
     merged.add(gulp.src('./app/redirect.html').pipe(gulp.dest(sti)));
     merged.add(gulp.src('./app/img/*.*').pipe(gulp.dest(sti + '/img')));
-    merged.add(gulp.src('./app/js/leaflet/**/*.*').pipe(gulp.dest(sti + '/js/leaflet')));
+    merged.add(gulp.src('./app/js/leaflet1.0.0.3/**/*.*').pipe(gulp.dest(sti + '/js/leaflet')));
     merged.add(gulp.src('./app/js/idb-database.js').pipe(gulp.dest(sti + '/js')));
     merged.add(gulp.src('./app/js/idb-worker.js').pipe(gulp.dest(sti + '/js')));
     merged.add(gulp.src('./app/js/list-worker.js').pipe(gulp.dest(sti + '/js')));
@@ -176,6 +177,10 @@ gulp.task('web-deploy', function () {
     return gulp.src('couchapp-web.js')
         .pipe(couchapp.push('couchdb/app-d2121ee08caf832b73a160f9ea022ad9', config_web));
 });
+gulp.task('web-develop', function () {
+    return gulp.src('couchapp-web.js')
+        .pipe(couchapp.push('couchdb/app-d2121ee08caf832b73a160f9ea022ad9', config_develop));
+});
 gulp.task('template-cache', function () {
     return gulp.src('app/templates/**/*.html')
         .pipe(templateCache({
@@ -212,5 +217,29 @@ gulp.task('minify', ['template-cache'], function () {
         .pipe(concat('all.js'))
         .pipe(ngAnnotate())
         .pipe(uglify())
+        .pipe(gulp.dest('www/js'));
+});
+
+gulp.task('dev', ['template-cache'], function () {
+    return gulp.src([
+        'app/js/angular-ios9-uiwebview.patch.js',
+        'app/js/tv4-da.js',
+        'app/js/idb-database.js',
+        'app/js/idb.js',
+        'app/js/leaflet.zoomdisplay.js',
+        'app/js/filters.js',
+        'app/js/directives.js',
+        'app/js/services.js',
+        'app/js/app.js',
+        'app/js/templates.js',
+        'app/js/controller-login.js',
+        'app/js/controller-organizations.js',
+        'app/js/controller-organization.js',
+        'app/js/controller-menu.js',
+        'app/js/controller-map.js',
+        'app/js/controller-intro.js'
+    ])
+        .pipe(concat('all.js'))
+        .pipe(ngAnnotate())
         .pipe(gulp.dest('www/js'));
 });

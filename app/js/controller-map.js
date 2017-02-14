@@ -14,7 +14,12 @@ function popupImage(database, id, field) {
     if (window.cordova) {
         cordova.InAppBrowser.open('https://geo.os2geo.dk/couchdb/db-' + database + '/' + id + '/' + field.substring(17), '_blank', 'location=yes');
     } else {
-        window.open('https://geo.os2geo.dk/couchdb/db-' + database + '/' + id + '/' + field.substring(17), '_blank');
+        var parts = window.location.hostname.split('.');
+        var os2geo = 'geo.os2geo.dk';
+        if (parts[0] === 'test' || parts.length === 1) {
+            os2geo = 'test.geo.os2geo.dk';
+        }
+        window.open('https://' + os2geo + '/couchdb/db-' + database + '/' + id + '/' + field.substring(17), '_blank');
     }
 }
 function popupLink(url) {
@@ -28,7 +33,13 @@ function popupLink(url) {
     'use strict';
 
     angular.module('starter.controllers').controller('mapCtrl', function ($ionicActionSheet, $ionicHistory, $ionicViewSwitcher, $ionicSideMenuDelegate, $stateParams, $state, $scope, $rootScope, socket, databases, $q, $timeout, $ionicLoading, $ionicModal, $ionicPopover, $ionicPopup, tilestream, $http) {
-
+        var os2geo = 'geo.os2geo.dk';
+        if (!window.cordova) {
+            var parts = window.location.hostname.split('.');
+            if (parts[0] === 'test' || parts.length === 1) {
+                os2geo = 'test.geo.os2geo.dk';
+            }
+        }
         var alertPopup;
         var queue = databases.get('queue');
         $scope.status = {};
@@ -576,7 +587,7 @@ function popupLink(url) {
                             if ($scope.doc._attachments[key2].data) {
                                 $scope.files[key2].src = $scope.doc._attachments['tn_' + key2].data; //URL.createObjectURL($scope.doc[field.id].data);
                             } else {
-                                $scope.files[key2].src = 'https://geo.os2geo.dk/db-' + $scope.overlay.database + '/' + id + '/tn_' + key2;
+                                $scope.files[key2].src = 'https://' + os2geo + '/db-' + $scope.overlay.database + '/' + id + '/tn_' + key2;
                             }
                         }
 
@@ -765,6 +776,17 @@ function popupLink(url) {
 
         };
         var initEdit = function () {
+            /*_map.on('popupopen', function (e) {
+                //e.popup.update();
+                $compile(e.popup.getElement())($scope);
+            });*/
+            _map.on('click mouseup', function (e) {
+                if (e.originalEvent.target.className === "button button-small icon ion-edit") {
+                    $scope.editItem($scope.selectedLayer.overlay.id, $scope.selectedLayer.layer.feature._id);
+                } else if (e.originalEvent.target.className === "button button-small icon ion-trash-a") {
+                    $scope.showDelete($scope.selectedLayer.overlay.id, $scope.selectedLayer.layer.feature._id);
+                }
+            });
             //polyline = new L.Draw.PolylineTouch(_map);
             //polygon = new L.Draw.PolygonTouch(_map);
             //_crosshairLayer.addTo(_map);
@@ -2166,7 +2188,7 @@ function popupLink(url) {
                             newDoc._attachments['tn_' + key] = newDoc._attachments[key];
                         }
                     } else {
-                        newDoc._attachments[key].data = 'https://geo.os2geo.dk/couchdb/' + dbname + '/' + newDoc._id + '/' + key;
+                        newDoc._attachments[key].data = 'https://' + os2geo + '/couchdb/' + dbname + '/' + newDoc._id + '/' + key;
                     }
                 }
             }
@@ -2669,6 +2691,7 @@ function popupLink(url) {
                 });*/
                 jsonTransformed.onEachFeature = function (feature, layer) {
                     layer.bindPopup(function (layer) {
+                        $scope.selectedLayer = { overlay: overlay, layer: layer };
                         var listSchema;
                         var doc;
                         if (overlay.database) {
@@ -2719,26 +2742,21 @@ function popupLink(url) {
                                 } else {
                                     row = 'even';
                                 }
-
                             }
-
                         }
                         content += '</table>';
-                        //var popup = layer.getPopup();
-
-                        //var content = popup.getContent();
                         if (_configuration.hasOwnProperty('security') && $rootScope.hasOwnProperty('user') && _configuration.security.indexOf($rootScope.user.name) !== -1) {
                             content += '<div class="button-bar">';
                             if (overlay.allowRemove) {
-                                content += '<button class="button button-small icon ion-trash-a" onclick="popupDelete(\'' + overlay.id + '\',\'' + layer.feature._id + '\')"></button>';
+                                //content += '<button class="button button-small icon ion-trash-a" onclick="popupDelete(\'' + overlay.id + '\',\'' + layer.feature._id + '\')"></button>';
+                                content += '<button class="button button-small icon ion-trash-a"></button>';
                             }
-                            content += '<button class="button button-small icon ion-edit" onclick="popupEdit(\'' + overlay.id + '\',\'' + layer.feature._id + '\')"></button>';
+                            //content += '<a style="cursor:pointer;color:#686868" class="button button-small icon ion-edit" onclick="popupEdit(\'' + overlay.id + '\',\'' + layer.feature._id + '\')"></a>';
+                            content += '<button class="button button-small icon ion-edit"></button>';
                             //content += '<button class="button button-small icon ion-edit" onclick="popupDraw(\'' + overlay.id + '\',\'' + layer.feature._id + '\')"></button>';
+                            //content += '<button class="button icon ion-edit" ng-click="editItem(\'' + overlay.id + '\',\'' + layer.feature._id + '\')"></button>';
                             content += '</div>';
                         }
-                        //popup.setContent(content);
-
-
                         return content;
                     });
                 };
